@@ -1,11 +1,11 @@
 import logo from './logo.svg';
 import './App.css';
-import Alert from './components/Alert';
+import ClickButton from './components/ClickButton'
 
 function App() {
   return (
-    <div>
-      <Alert />
+    <div className="App">
+      <ClickButton/>
     </div>
   );
 }
