@@ -1,43 +1,35 @@
 import React from 'react';
+
 class ConditionalRendering extends React.Component {
     constructor(props) {
-        super(props);
-        this.state = { text: '', inputText: '', mode: 'view' };
+        super(props)
+        this.state = { isExpand: false }
+    }
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSave = this.handleSave.bind(this);
-        this.handleEdit = this.handleEdit.bind(this);
+    handleRender = () => {
+        this.setState({ isExpand: !this.state.isExpand })
     }
-    handleChange(e) {
-        this.setState({ inputText: e.target.value });
-    }
-    handleSave() {
-        this.setState({ text: this.state.inputText, mode: 'view' });
-    }
-    handleEdit() {
-        this.setState({ mode: 'edit' });
-    }
+
     render() {
-        if (this.state.mode === 'view') {
-            return (
+        let intro;
+        if(this.state.isExpand) {
+            intro = (
                 <div>
-                    <p>Text: {this.state.text}</p>
-                    <button onClick={this.handleEdit}>
-                        Edit
-                    </button>
+                    <h3>Giới Thiệu</h3>
+                    <p>Trong React, Đôi khi ....</p>
                 </div>
-            );
-        } else {
-            return (
-                <div>
-                    <p>Text: {this.state.text}</p>
-                    <input onChange={this.handleChange}
-                        value={this.state.inputText}
-                    />
-                    <button onClick={this.handleSave}>Save</button>
-                </div>
-            );
+            )
         }
+        return (
+            <div className='conditional-rendering'>
+                <h1 className='title'>
+                    Conditional Rendering
+                </h1>
+                <button onClick={this.handleRender}>{!this.state.isExpand ? "Xem giới thiệu" : 'Đóng giới thiệu'}</button>
+                <div>{intro}</div>
+            </div>
+        )
     }
 }
+
 export default ConditionalRendering;
