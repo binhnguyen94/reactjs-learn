@@ -14,7 +14,6 @@ class Login extends React.Component {
         this.setState((state) => {
             const { form } = state
             form[event.target.name] = event.target.value
-            console.log(form)
             return { form }
         }, () => this.checkValidForm())   
     }
