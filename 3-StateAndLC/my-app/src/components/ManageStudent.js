@@ -5,7 +5,7 @@ class ManageStudent extends React.Component {
         super(props)
         this.state = {
             studentList: [],
-            form: { name: '', phone:'', email:''},
+            form: { name: '', phone: '', email: '' },
             isValid: false,
             indexSelected: -1
         }
@@ -15,7 +15,7 @@ class ManageStudent extends React.Component {
         this.setState((state) => {
             const form = state.form;
             form[event.target.name] = event.target.value;
-            return {form};
+            return { form };
         }, () => this.checkInvalidForm())
     };
 
@@ -27,19 +27,19 @@ class ManageStudent extends React.Component {
     }
 
     handleSubmit = () => {
-        if(this.state.isValid) {
+        if (this.state.isValid) {
             const newList = this.state.studentList
-            if(this.state.indexSelected > -1) {
+            if (this.state.indexSelected > -1) {
                 newList.splice(this.state.indexSelected, 1);
             } else {
                 newList.push(this.state.form);
             }
-            this.setState({ studentList : newList})
+            return this.setState({ studentList: newList })
         }
     }
 
-    handleDelete = (event) => {
-        console.log(event)
+    handleDelete(index) {
+        console.log(index)
     }
 
     checkInvalidForm = () => {
@@ -58,7 +58,7 @@ class ManageStudent extends React.Component {
                     <h1>Student List</h1>
                     <div>
                         <label>Name: </label>
-                        <input name="name"  onChange={this.handleChange} />
+                        <input name="name" onChange={this.handleChange} />
                     </div>
                     <div>
                         <label>Phone: </label>
@@ -75,6 +75,7 @@ class ManageStudent extends React.Component {
                                 <td>Name</td>
                                 <td>Phone</td>
                                 <td>Email</td>
+                                <td>Action</td>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,12 +85,13 @@ class ManageStudent extends React.Component {
                     */ }
                             {
                                 studentList.map((student, index) => (
-                                    <tr  key={index}>
+                                    <tr key={index}>
                                         <td>{student.name}</td>
                                         <td>{student.phone}</td>
-                                        <td>{student.email}
-                                        <button onClick={this.handleSelect}>Edit</button>
-                                        <button onClick={this.handleDelete(index)}>Delete</button>
+                                        <td>{student.email}</td>
+                                        <td>
+                                            <button onClick={this.handleSelect}>Edit</button>
+                                            <button onClick={() => this.handleDelete(index)}>Delete</button>
                                         </td>
                                     </tr>
                                 ))
