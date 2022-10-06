@@ -30,16 +30,23 @@ class ManageStudent extends React.Component {
         if (this.state.isValid) {
             const newList = this.state.studentList
             if (this.state.indexSelected > -1) {
-                newList.splice(this.state.indexSelected, 1);
+                newList.splice(this.state.indexSelected, 1, this.state.form);
             } else {
                 newList.push(this.state.form);
             }
-            return this.setState({ studentList: newList })
+            return this.setState({ 
+                studentList: newList, 
+                form : {name: '', phone: '', email: ''}
+            }, () => this.checkInvalidForm())
+        } else {
+            alert('Khong dc de trống')
         }
     }
 
-    handleDelete(index) {
-        console.log(index)
+    handleDelete = (index) => {
+        const deleteStudent = this.state.studentList;
+        deleteStudent.splice(index, 1)
+        this.setState({studentList: deleteStudent})
     }
 
     checkInvalidForm = () => {
@@ -58,7 +65,7 @@ class ManageStudent extends React.Component {
                     <h1>Student List</h1>
                     <div>
                         <label>Name: </label>
-                        <input name="name" onChange={this.handleChange} />
+                        <input name="name" value={form.name} onChange={this.handleChange} />
                     </div>
                     <div>
                         <label>Phone: </label>
@@ -79,10 +86,6 @@ class ManageStudent extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {/* Sử dụng phương thức map() để in danh sách student
-                        Tạo button Edit với onClick gọi tới hàm handleSelect
-                        Tạo button Delete với onClick gọi tới hàm handleDelete
-                    */ }
                             {
                                 studentList.map((student, index) => (
                                     <tr key={index}>
@@ -90,7 +93,7 @@ class ManageStudent extends React.Component {
                                         <td>{student.phone}</td>
                                         <td>{student.email}</td>
                                         <td>
-                                            <button onClick={this.handleSelect}>Edit</button>
+                                            <button onClick={() => this.handleSelect(student, index)}>Edit</button>
                                             <button onClick={() => this.handleDelete(index)}>Delete</button>
                                         </td>
                                     </tr>
