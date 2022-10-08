@@ -12,7 +12,7 @@ export default function Count() {
                 <button onClick={() => setCount1(1)}>Add 1</button>
             </div>
             <div className="count-2">
-                <h4>Count 2: {count1}</h4>
+                <h4>Count 2: {count2}</h4>
                 <button onClick={() => setCount2(2)}>Add 2</button>
             </div>
 
